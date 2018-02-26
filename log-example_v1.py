@@ -1,7 +1,7 @@
 #! python3
 # Python 3 logging example
 # The original code for this project came from Corey Schafer on Youtube
-# https://youtu.be/-ARI4Cz-awo
+# https://youtu.be/-ARI4Cz-awo <- Basic logging video
 # Logging is built into Python
 import logging
 

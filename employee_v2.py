@@ -4,8 +4,32 @@
 # https://youtu.be/jxmzY9soFXg <- Advanced logging video
 import logging
 
-logging.basicConfig(filename='employee.log', level=logging.INFO,
-                    format='%(asctime)s:%(levelname)s:%(message)s')
+# Creating logger variable - convention is to use __name__ variable.  This
+# means that when the logger is launched via the script it's in, the name will
+# be "main".  If the logger is launched via a script that is imported, it's
+# name will be the name of the script (I.e. employee_v2).
+logger = logging.getLogger(__name__)
+# After creating the new logger variable, it needs to be used.  The log
+# statement below is therefore changed from logging to logger.
+# Set log level
+logger.setLevel(logging.INFO)
+
+# Creating a formatter to handle the formatting of the output to the log file
+formatter = logging.Formatter('%(asctime)s:%(name)s:%(levelname)s:%(message)s')
+
+# Need to add a file handler for the new logger - allows the specification of
+# the file to be logged to
+file_handler = logging.FileHandler('employee.log')
+# Adding the formatter to the file handler
+file_handler.setFormatter(formatter)
+
+# Add the handler to the logger
+logger.addHandler(file_handler)
+
+# Setting the basic config in this maner is only for the "root" logger - left
+# here as an example.
+# logging.basicConfig(filename='employee.log', level=logging.INFO,
+#                     format='%(asctime)s:%(levelname)s:%(message)s')
 
 
 class Employee:
@@ -16,7 +40,7 @@ class Employee:
         self.last = last
 
         # print('Created Employee: {} - {}'.format(self.fullname, self.email))
-        logging.info('Created Employee: {} - {}\
+        logger.info('Created Employee: {} - {}\
                      '.format(self.fullname, self.email))
 
     @property

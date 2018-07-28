@@ -7,7 +7,7 @@ import logging
 # Importing the employee script - code will run on import which causes this
 # scripts logger not to run if everything is left as-is from v1 scripts.  This
 # is because each script is "sharing" the "root logger"
-import employee_v2
+# import employee_v2
 
 # Logging levels:
 # DEBUG:  Detailed information, typically of interest only when diagnosing

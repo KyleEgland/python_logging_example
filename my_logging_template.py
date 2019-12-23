@@ -17,45 +17,39 @@ else:
     except Exception as e:
         print('[-] Unable to create directory - please check permissions')
         sys.exit()
-
-# Log levels (low-high): Debug -> Info -> Warning -> Error -> Critical
-# Instantiate a logger - instead of using root - to allow files to log
-# independently (if there are multiple files in a project)
+#
+# LOGGER creation
 logger = logging.getLogger(__name__)
-
-# This establishes what level to log (ref. log levels above)
+#
+# LOGGER set level: Debug -> Info -> Warning -> Error -> Critical
 logger.setLevel(logging.DEBUG)
-
-# Format the string that prepends the information that goes into the log file
+#
+# FORMATTER creation
 formatter = logging.Formatter('%(asctime)s:%(name)s:%(levelname)s:%(message)s',
                               datefmt='%d-%b-%Y %H')
-
-# Create/name the log file
+#
+# FILE HANDLER creation
 file_handler = logging.FileHandler('./logs/{}.log'.format(__name__))
-
-# Link the specified format above to the logger
+#
+# FILE HANDLER set formatter
 file_handler.setFormatter(formatter)
-
-# Capture only Errors and above in file handler - this overrides ".setLevel"
-# for the file
+#
+# FILE HANDLER set level
 file_handler.setLevel(logging.ERROR)
-
-# Adding stream handler to put debug statements in console
+#
+# STREAM HANDLER creation
 stream_handler = logging.StreamHandler()
-# Don't need to set logging level on this because the logger itself is
-# set to DEBUG already
-# Set formatting of stream handler to be the same as the log file
+# STREAM HANDLER set formatter
 stream_handler.setFormatter(formatter)
-
+#
+# LOGGER add handlers
 logger.addHandler(file_handler)
-# Add stream handler to the logger
 logger.addHandler(stream_handler)
 # NOTES:
 # use logger.exception() to get the traceback in addtion to log message
-
-# ---------- #
-# End Logger #
-# ---------- #
+# ---------------------- #
+# ----- End Logger ----- #
+# ---------------------- #
 
 
 if __name__ == "__main__":

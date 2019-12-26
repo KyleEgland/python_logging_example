@@ -24,7 +24,7 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 #
 # FORMATTER creation
-formatter = logging.Formatter(['%(asctime)s] - %(name)s: (%(levelname)s) %(message)s',
+formatter = logging.Formatter('[%(asctime)s] - %(name)s: (%(levelname)s) %(message)s',
                               datefmt='%d-%b-%Y %H%M:%S.%s')
 #
 # FILE HANDLER creation

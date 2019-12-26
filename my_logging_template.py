@@ -1,6 +1,7 @@
 #! python3
 # This is the logging template that I copy/paste into my projects
 import logging
+from logging.handlers import RotatingFileHandler
 import os
 import sys
 
@@ -9,14 +10,12 @@ import sys
 # Logger Setup #
 # ------------ #
 # Check for the existence of a 'logs' folder - should one not exist, create it
-if os.path.exists('./logs/'):
-    pass
-else:
+if not os.path.exists('./logs/'):
     try:
         os.mkdir('./logs/')
     except Exception as e:
         print('[-] Unable to create directory - please check permissions')
-        sys.exit()
+        sys.exit(1)
 #
 # LOGGER creation
 logger = logging.getLogger(__name__)
@@ -25,11 +24,15 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 #
 # FORMATTER creation
-formatter = logging.Formatter('%(asctime)s:%(name)s:%(levelname)s:%(message)s',
-                              datefmt='%d-%b-%Y %H')
+formatter = logging.Formatter(['%(asctime)s] - %(name)s: (%(levelname)s) %(message)s',
+                              datefmt='%d-%b-%Y %H%M:%S.%s')
 #
 # FILE HANDLER creation
-file_handler = logging.FileHandler('./logs/{}.log'.format(__name__))
+file_handler = logging.RotatingFileHandler(
+    './logs/{}.log'.format(__name__),
+    maxBytes=20,
+    backupCount=5
+)
 #
 # FILE HANDLER set formatter
 file_handler.setFormatter(formatter)
